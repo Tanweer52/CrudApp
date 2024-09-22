@@ -37,10 +37,10 @@ h5 {
 .btn {
     margin: 5px; 
     padding: 5px 8px;
-    background-color: #ff8800; 
+    background-color:Teal; 
     border: none;
     border-radius: 5px; 
-    color: rgb(226, 12, 12); 
+    color: rgb(216, 208, 208); 
     font-size: 12px; 
     cursor: pointer;
     transition: background-color 0.3s; 
@@ -54,4 +54,18 @@ h5 {
     display: flex; 
     flex-wrap: wrap;
     justify-content: space-between;
+}
+
+.Update-message{
+    text-align: center;
+    color: rgb(28, 92, 92);
+    font-weight: 800;
+    font-size: 20px;
+}
+
+.delete-message{
+    text-align: center;
+    color: rgb(239, 74, 77);
+    font-weight: 800;
+    font-size: 20px;
 }

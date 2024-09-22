@@ -3,11 +3,11 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background-color: #ffffff; 
+    background-color: #8cd6ec; 
     padding: 10px 20px;
     border-radius: 8px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
+    margin: 20px;
     font-family: 'Arial', sans-serif;
     transition: background-color 0.3s ease;
 }
@@ -16,7 +16,7 @@
 .NavigationContainer h2 {
     margin: 0;
     font-size: 2rem;
-    color: #007bff; 
+    color: #080809; 
     cursor: pointer;
     transition: color 0.3s ease, transform 0.3s ease;
 }
@@ -35,3 +35,21 @@
         font-size: 1.8rem;
     }
 }
+
+
+/* .top{
+    width: 100%;
+    height: 50px;
+    background-color:rgb(204, 202, 202);
+    position: sticky;
+    top:0;
+    display: flex;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
+    z-index: 999;
+}
+
+.top-center{
+    flex: 6;
+    font-family: 'lora', serif;
+} */

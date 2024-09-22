@@ -7,6 +7,8 @@ import "./AddressList.css";
 const AddressList = () => {
     const [addresses, setAddresses] = useState([]);
     const [selectedAddress, setSelectedAddress] = useState(null);
+    const [deleteMessage, setDeleteMessage] = useState('');
+    const [updateMessage, setUpdateMessage] = useState('')
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/addresses').then((response) => {
@@ -20,6 +22,10 @@ const AddressList = () => {
             .then(() => {
                 axios.get('http://localhost:5000/api/addresses').then((response) => {
                     setAddresses(response.data);
+                    setDeleteMessage("Deleted");
+                    setTimeout(() => {
+                        setDeleteMessage('');
+                    }, 1000)
                 });
             })
             .catch((error) => {
@@ -38,6 +44,10 @@ const AddressList = () => {
                 axios.get('http://localhost:5000/api/addresses').then((response) => {
                     setAddresses(response.data);
                     setSelectedAddress(null);
+                    setUpdateMessage("Updated");
+                    setTimeout(() => {
+                        setUpdateMessage('');
+                    }, 1000)
                 });
             })
             .catch((error) => {
@@ -49,7 +59,12 @@ const AddressList = () => {
         <div className='updateAddress'>
             <h2 className='UpdateAddressHeading'>Address Book</h2>
             <Navigation />
-            {addresses.length === 0 && <h1 style={{ textAlign: 'center', color: '#345' }}>
+
+            {updateMessage && <p className='Update-message'>{updateMessage}</p>}
+            {deleteMessage && <p className='delete-message'>{deleteMessage}</p>}
+
+            {addresses.length === 0 && <h1
+                style={{ textAlign: 'center', color: '#345' }}>
                 No Address is Added. Let's Start with Yours...
             </h1>
             }

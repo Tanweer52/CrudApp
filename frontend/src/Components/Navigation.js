@@ -14,11 +14,23 @@ const Navigation = () => {
         nav('/add');
     }
 
+
     return (
         <nav className='NavigationContainer'>
-            <h1 className='ViewAll' onClick={gotoHome}><JournalAlbum /></h1>
-            <h1 className='AddIcon' onClick={gotoAdd}><PlusCircle /></h1>
+
+            <h2 className='ViewAll' onClick={gotoHome}><JournalAlbum /></h2>
+            <h2 className='AddIcon' onClick={gotoAdd}><PlusCircle /></h2>
+
         </nav>
+
+        // <div className="top">
+        //     <div className="top-center">
+        //         <i onClick={gotoHome}
+        //             className="topicon fa-brands fa-facebook"><JournalAlbum /></i>
+        //         <i onClick={gotoAdd}
+        //             className="topicon fa-brands fa-twitter"><PlusCircle /></i>
+        //     </div>
+        // </div>
     );
 };
 

@@ -6,6 +6,7 @@ import "./AddAddress.css";
 
 const AddAddress = () => {
     const nav = useNavigate();
+    const [message, setmessage] = useState('');
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -20,7 +21,13 @@ const AddAddress = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:5000/api/addresses', formData).then(() => {
-            nav('/');
+            setmessage("Addressed Saved");
+
+            setTimeout(() => {
+                nav('/');
+            }, 2000)
+        }).catch((err) => {
+            setmessage("Error Saving Data")
         });
     };
 
@@ -29,6 +36,7 @@ const AddAddress = () => {
             <h2>Add Address</h2>
             <Navigation />
 
+            {message && <p className='message'>{message}</p>}
             <form onSubmit={handleSubmit}>
                 <div className='form-group'>
                     <label>Name:</label>
@@ -58,6 +66,7 @@ const AddAddress = () => {
 
                 <button type="submit" className='btn'>Add Address</button>
             </form>
+
         </div>
     );
 };
