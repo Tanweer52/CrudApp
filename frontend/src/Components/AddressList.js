@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 import Navigation from './Navigation';
 import { PencilSquare, Trash } from 'react-bootstrap-icons';
@@ -9,6 +9,7 @@ const AddressList = () => {
     const [selectedAddress, setSelectedAddress] = useState(null);
     const [deleteMessage, setDeleteMessage] = useState('');
     const [updateMessage, setUpdateMessage] = useState('')
+    const inputRef = useRef();
 
     useEffect(() => {
         axios.get('http://localhost:5000/api/addresses').then((response) => {
@@ -16,16 +17,29 @@ const AddressList = () => {
         });
     }, []);
 
-    const handleDelete = (DeleteAddress) => {
-        axios
+    useEffect(() => {
+        if (inputRef.current) {
+            // console.log(inputRef.current.value)
+            inputRef.current.focus();
+        }
+    }, [selectedAddress]);
+
+
+    const handleDelete = async (DeleteAddress) => {
+        await axios
             .delete(`http://localhost:5000/api/addresses/${DeleteAddress._id}`)
             .then(() => {
+
+                setDeleteMessage("Deleted!");
+                setTimeout(() => {
+                    setDeleteMessage('');
+                }, 1000)
                 axios.get('http://localhost:5000/api/addresses').then((response) => {
                     setAddresses(response.data);
-                    setDeleteMessage("Deleted");
-                    setTimeout(() => {
-                        setDeleteMessage('');
-                    }, 1000)
+                    // setDeleteMessage("Deleted!");
+                    // setTimeout(() => {
+                    //     setDeleteMessage('');
+                    // }, 1000)
                 });
             })
             .catch((error) => {
@@ -37,17 +51,22 @@ const AddressList = () => {
         setSelectedAddress(address);
     };
 
-    const handleUpdate = (updatedAddress) => {
-        axios
+    const handleUpdate = async (updatedAddress) => {
+        await axios
             .put(`http://localhost:5000/api/addresses/${updatedAddress._id}`, updatedAddress)
             .then(() => {
+                setUpdateMessage("Updated!");
+                setTimeout(() => {
+                    setUpdateMessage('');
+                }, 1000)
+
                 axios.get('http://localhost:5000/api/addresses').then((response) => {
                     setAddresses(response.data);
                     setSelectedAddress(null);
-                    setUpdateMessage("Updated");
-                    setTimeout(() => {
-                        setUpdateMessage('');
-                    }, 1000)
+                    // setUpdateMessage("Updated!");
+                    // setTimeout(() => {
+                    //     setUpdateMessage('');
+                    // }, 1000)
                 });
             })
             .catch((error) => {
@@ -65,16 +84,17 @@ const AddressList = () => {
 
             {addresses.length === 0 && <h1
                 style={{ textAlign: 'center', color: '#345' }}>
-                No Address is Added. Let's Start with Yours...
+                Address List is Empty Now. Start Adding.
             </h1>
             }
             {selectedAddress && (
-                <div>
+                <div className='edit-address'>
                     <h2>Edit Address</h2>
-                    <form onSubmit={() => handleUpdate(selectedAddress)}>
+                    <form onSubmit={(e) => { e.preventDefault(); handleUpdate(selectedAddress); }}>
                         <div className="form-group">
                             <label>Name:</label>
                             <input
+                                ref={inputRef}
                                 type="text"
                                 className="form-control"
                                 name="name"
@@ -142,6 +162,7 @@ const AddressList = () => {
                     </form>
                 </div>
             )}
+
             <div className="cardContainer">
                 {addresses.map((address) => (
                     <div className='addressCard' key={address._id}>

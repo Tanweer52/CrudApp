@@ -21,13 +21,13 @@ const AddAddress = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         axios.post('http://localhost:5000/api/addresses', formData).then(() => {
-            setmessage("Addressed Saved");
+            setmessage("Addressed Saved!");
 
             setTimeout(() => {
                 nav('/');
-            }, 2000)
+            }, 1000)
         }).catch((err) => {
-            setmessage("Error Saving Data")
+            setmessage("Error Saving Data!")
         });
     };
 
